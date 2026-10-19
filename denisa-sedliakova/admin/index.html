@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="sk"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Denisa Sedliaková</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+:root{--display:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--a:#1f8a8a;--ink:#141a22;--soft:#3a4250;--muted:#6b7583;--line:#e3e7ec;--bg:#eef0f4;--card:#fff;--r:14px}
+*{box-sizing:border-box}h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em}body{margin:0;font-family:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.5}
+a{color:var(--a)}button,input,select,textarea{font:inherit}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:9px 14px;border-radius:9px;cursor:pointer;font-weight:700;text-decoration:none}
+.btn:hover{border-color:var(--a);color:var(--a)}.btn--p{background:var(--a);border-color:var(--a);color:#fff}.btn--p:hover{filter:brightness(.92);color:#fff}
+.btn--s{padding:6px 10px;font-size:13px}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--a);outline-offset:1px}
+label{display:grid;gap:5px;font-size:12.5px;font-weight:700;color:var(--soft)}
+.hidden{display:none!important}
+/* přihlášení */
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login__box{background:#fff;border-radius:20px;padding:34px 32px;width:min(420px,100%);box-shadow:0 30px 70px -40px rgba(20,26,34,.5);display:grid;gap:14px}
+.login__logo{display:flex;align-items:center;gap:12px;margin-bottom:8px}.login__logo img{height:38px;width:auto;max-width:160px;object-fit:contain}
+.login__logo b{display:block}.login__logo span{color:var(--muted);font-size:13px}
+.login h1{font-size:22px;margin:0}.login p{margin:0;color:var(--muted)}
+.tip{background:color-mix(in srgb,var(--a) 10%,#fff);border-left:3px solid var(--a);padding:10px 12px;border-radius:8px;font-size:13px}
+/* aplikace */
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{background:#fff;border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.side__brand{display:flex;align-items:center;gap:10px;padding:6px 8px 16px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.side__brand img{height:34px;width:auto;max-width:120px;object-fit:contain}.side__brand b{font-size:14px;display:block}.side__brand span{font-size:12px;color:var(--muted)}
+.side a.nav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--soft);text-decoration:none;font-weight:600}
+.side a.nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.side a.nav.on{background:color-mix(in srgb,var(--a) 12%,#fff);color:var(--a)}
+.side__dole{margin-top:auto;display:grid;gap:8px;font-size:12.5px;color:var(--muted)}
+.side__osoba{display:flex;align-items:center;gap:10px;padding:8px}.side__osoba img{width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:top}.side__inic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:800;font-size:13px;flex:0 0 auto}
+.main{padding:22px clamp(16px,3vw,36px) 60px}
+.hlava{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.hlava h1{font-size:24px;margin:0}.hlava p{margin:4px 0 0;color:var(--muted)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:22px}
+.kpi div{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.kpi b{display:block;font-size:21px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}.kpi span{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.karta{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.karta h2{font-size:16px;margin:0 0 12px}
+.dva{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.stitek{display:inline-block;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:700;background:color-mix(in srgb,var(--a) 12%,#fff);color:var(--a)}
+/* kanban */
+.kanban{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(230px,1fr);gap:12px;overflow-x:auto;padding-bottom:10px;align-items:start}
+.sloupec{background:#e6e9ef;border-radius:var(--r);padding:10px;min-height:200px}
+.sloupec.over{outline:2px dashed var(--a)}
+.sloupec__h{display:flex;justify-content:space-between;align-items:center;padding:4px 6px 10px;font-weight:800;font-size:13px}
+.sloupec__h span{background:#fff;border-radius:999px;padding:1px 8px;font-size:12px;color:var(--muted)}
+.kk{background:#fff;border-radius:10px;padding:8px;margin-bottom:8px;cursor:grab;box-shadow:0 8px 20px -14px rgba(0,0,0,.4);display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:center}
+.kk img{width:56px;height:44px;object-fit:cover;border-radius:6px;background:var(--bg)}
+.kk b{display:block;font-size:13px;line-height:1.25}.kk span{font-size:12px;color:var(--muted)}.kk em{font-style:normal;color:var(--a);font-weight:700;font-size:12.5px}
+.kk.dragging{opacity:.4}
+img.is-broken{visibility:hidden}.kk .bez-fotky,.bez-fotky{background:var(--bg) center/28px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa3ad' stroke-width='1.6'%3E%3Cpath d='M3 11l9-8 9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z'/%3E%3C/svg%3E")}
+/* panel detailu */
+.panel{position:fixed;inset:0 0 0 auto;width:min(480px,100%);background:#fff;box-shadow:-20px 0 60px -30px rgba(0,0,0,.4);padding:22px;overflow:auto;z-index:20;display:grid;gap:14px;align-content:start}
+.panel img.foto{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:var(--bg)}
+.panel h2{margin:0;font-size:18px}.panel .zavrit{position:absolute;right:14px;top:12px;border:0;background:var(--bg);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+.pozn{display:grid;gap:8px}.pozn div{background:var(--bg);border-radius:8px;padding:8px 10px;font-size:13px}.pozn small{color:var(--muted);display:block}
+.zatemneni{position:fixed;inset:0;background:rgba(20,26,34,.35);z-index:19}
+/* odhad */
+.odhad{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.vysledek{background:linear-gradient(160deg,color-mix(in srgb,var(--a) 14%,#fff),#fff);border:1px solid color-mix(in srgb,var(--a) 30%,#fff)}
+.vysledek b.cena{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em}
+.rozpeti{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:6px}
+.pruh{height:8px;border-radius:999px;background:linear-gradient(90deg,#d9e6ea,var(--a),#d9e6ea);margin-top:10px;position:relative}
+.pruh i{position:absolute;top:-4px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--a);transform:translateX(-50%)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;z-index:30;opacity:0;transition:opacity .3s}
+.toast.on{opacity:1}
+.ukol{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}.ukol input[type=checkbox]{width:18px;height:18px;margin-top:2px}
+.ukol.hotovo b{text-decoration:line-through;color:var(--muted)}.ukol small{color:var(--muted);display:block}
+.ukol.pozde small{color:#c0392b;font-weight:700}
+.burger{display:none}
+@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center}
+  .side__brand{border:0;padding:6px 8px;margin:0;flex:1 1 100%}.side a.nav{padding:8px 10px;font-size:13px}.side__dole{display:none}.kanban{grid-auto-columns:minmax(220px,260px)}}
+</style>
+</head><body>
+<script id="mk-data" type="application/json">{"slug": "denisa-sedliakova", "jmeno": "Denisa Sedliaková", "role": "Realitná maklérka", "email": "sedliakova@studnicnyjarok.sk", "telefon": "+421901788552", "wa": "", "kancelar": "RENOVIN REALITY", "logo": "../assets/logo.svg", "foto": "../assets/portret.jpg", "accent": "#247a5b", "nemovitosti": [{"id": "926059", "slug": "novostavba-rodinny-dom-a1-studnicny-jarok-dobra-ni-926059", "titul": "Novostavba rodinný dom \"A1\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 351200, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/926059/00_m.webp", "foto_velka": "../assets/n/926059/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a1-studnicny-jarok-dobra-niva-926059", "vlozeno": "2026-10-19"}, {"id": "926264", "slug": "novostavba-rodinny-dom-b1-studnicny-jarok-dobra-ni-926264", "titul": "Novostavba rodinný dom \"B1\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 394900, "plocha": 167.26, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/926264/00_m.webp", "foto_velka": "../assets/n/926264/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-b1-studnicny-jarok-dobra-niva-926264", "vlozeno": "2026-10-19"}, {"id": "975377", "slug": "novostavba-rodinny-dom-a2-studnicny-jarok-dobra-ni-975377", "titul": "Novostavba rodinný dom \"A2\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 339900, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975377/00_m.webp", "foto_velka": "../assets/n/975377/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a2-studnicny-jarok-dobra-niva-975377", "vlozeno": "2026-10-19"}, {"id": "975380", "slug": "novostavba-rodinny-dom-a3-studnicny-jarok-dobra-ni-975380", "titul": "Novostavba rodinný dom \"A3\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 338900, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975380/00_m.webp", "foto_velka": "../assets/n/975380/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a3-studnicny-jarok-dobra-niva-975380", "vlozeno": "2026-10-19"}, {"id": "975382", "slug": "novostavba-rodinny-dom-a4-studnicny-jarok-dobra-ni-975382", "titul": "Novostavba rodinný dom \"A4\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 334900, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975382/00_m.webp", "foto_velka": "../assets/n/975382/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a4-studnicny-jarok-dobra-niva-975382", "vlozeno": "2026-10-19"}, {"id": "975383", "slug": "novostavba-rodinny-dom-a5-studnicny-jarok-dobra-ni-975383", "titul": "Novostavba rodinný dom \"A5\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 333900, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975383/00_m.webp", "foto_velka": "../assets/n/975383/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a5-studnicny-jarok-dobra-niva-975383", "vlozeno": "2026-10-19"}, {"id": "975385", "slug": "novostavba-rodinny-dom-b2-studnicny-jarok-dobra-ni-975385", "titul": "Novostavba rodinný dom \"B2\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 379900, "plocha": 167.26, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975385/00_m.webp", "foto_velka": "../assets/n/975385/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-b2-studnicny-jarok-dobra-niva-975385", "vlozeno": "2026-10-19"}, {"id": "975384", "slug": "novostavba-rodinny-dom-a6-studnicny-jarok-dobra-ni-975384", "titul": "Novostavba rodinný dom \"A6\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 343900, "plocha": 150.88, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975384/00_m.webp", "foto_velka": "../assets/n/975384/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-a6-studnicny-jarok-dobra-niva-975384", "vlozeno": "2026-10-19"}, {"id": "975387", "slug": "novostavba-rodinny-dom-b3-studnicny-jarok-dobra-ni-975387", "titul": "Novostavba rodinný dom \"B3\" Studničný jarok Dobrá Niva", "typ": "dům", "tr": "prodej", "cena": 397900, "plocha": 167.26, "dispozice": "4-izbový", "obec": "Dobrá Niva", "okres": "Zvolen", "kraj": "Banskobystrický kraj", "foto": "../assets/n/975387/00_m.webp", "foto_velka": "../assets/n/975387/00.webp", "portal": "https://www.zoznamrealit.sk/novostavba-rodinny-dom-b3-studnicny-jarok-dobra-niva-975387", "vlozeno": "2026-10-19"}]}</script>
+
+<div id="login" class="login"><div class="login__box">
+  <div class="login__logo"><img src="../assets/logo.svg" alt="RENOVIN REALITY"><div><b>Denisa Sedliaková</b><span>Realitná maklérka · RENOVIN REALITY</span></div></div>
+  <h1>Prihlásenie do administrácie</h1>
+  <p>Pipeline nehnuteľností, záujemcovia, úlohy, odhad ceny a e-maily na jednom mieste.</p>
+  <form>
+    <label>E-mail<input type="email" value="sedliakova@studnicnyjarok.sk" autocomplete="username"></label>
+    <label style="margin-top:10px">Heslo<input type="password" id="heslo" autocomplete="current-password" required></label>
+    <p id="login-chyba" class="hidden" style="color:#c0392b;font-size:13px">Nesprávne heslo.</p>
+    <button class="btn btn--p" type="submit" style="margin-top:14px;width:100%;justify-content:center">Prihlásiť sa</button>
+  </form>
+  <div class="tip">Ukážka: heslo <b>makler</b>. Dáta sa ukladajú len vo Vašom prehliadači. V plnej verzii má admin vlastné prihlásenie, zálohovanie a odosielanie e-mailov.</div>
+  <p style="font-size:13px"><a href="../">Späť na web</a></p>
+</div></div>
+
+<div id="app" class="app hidden">
+<aside class="side">
+  <div class="side__brand"><img src="../assets/logo.svg" alt="RENOVIN REALITY"><div><b>Denisa Sedliaková</b><span>Realitná maklérka</span></div></div>
+  <a class="nav" href="#prehled"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>Prehľad</a><a class="nav" href="#pipeline"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="5" height="13" rx="1"/></svg>Pipeline</a><a class="nav" href="#zajemci"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7"/><path d="M17 4a4 4 0 0 1 0 8M22 21c0-3-1.5-5.5-4-6.5"/></svg>Záujemcovia</a><a class="nav" href="#ukoly"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></svg>Úlohy</a><a class="nav" href="#odhad"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M6 15l4-5 4 3 4-6"/></svg>Odhad ceny</a><a class="nav" href="#emaily"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-maily</a><a class="nav" href="#nastaveni"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Nastavenia</a>
+  <div class="side__dole"><div class="side__osoba"><img src="../assets/portret.jpg" alt=""><div><b>Denisa Sedliaková</b><br>sedliakova@studnicnyjarok.sk</div></div>
+    <a class="btn btn--s" href="../" target="_blank">Zobraziť web</a><button class="btn btn--s" id="odhlasit">Odhlásiť</button></div>
+</aside>
+<main class="main">
+  <section class="sekce" id="s-prehled">
+    <div class="hlava"><div><h1>Prehľad</h1><p>Čo sa deje vo Vašej ponuke.</p></div></div>
+    <div class="kpi" id="kpi"></div>
+    <div class="dva"><div class="karta"><h2>Pipeline podľa fáz</h2><table id="prehled-faze"></table></div>
+      <div class="karta"><h2>Úlohy na tento týždeň</h2><div id="prehled-ukoly"></div></div></div>
+  </section>
+  <section class="sekce hidden" id="s-pipeline">
+    <div class="hlava"><div><h1>Pipeline nehnuteľností</h1><p>Presuňte kartu do inej fázy, kliknutím otvoríte detail.</p></div></div>
+    <div class="kanban" id="kanban"></div>
+  </section>
+  <section class="sekce hidden" id="s-zajemci">
+    <div class="hlava"><div><h1>Záujemcovia</h1><p>Kto hľadá čo a v akej fáze rokovania je.</p></div></div>
+    <div class="karta" style="margin-bottom:16px"><h2>Nový záujemca</h2><form id="z-form" class="odhad">
+      <label>Meno<input name="jmeno" required></label><label>Telefón<input name="telefon"></label><label>E-mail<input name="email" type="email"></label>
+      <label>Hľadá<input name="hleda" placeholder="2-izbový byt, Bratislava"></label><label>Rozpočet (€)<input name="rozpocet" type="number" min="0"></label>
+      <label>Nehnuteľnosť<select name="nem" id="z-nem"></select></label><label>Poznámka<input name="pozn"></label>
+      <label>&nbsp;<button class="btn btn--p" type="submit">Pridať záujemcu</button></label></form></div>
+    <div class="karta" style="overflow:auto"><table><thead><tr><th>Záujemca</th><th>Hľadá</th><th>Nehnuteľnosť</th><th>Stav</th><th>Poznámka</th><th></th></tr></thead><tbody id="zajemci-tab"></tbody></table></div>
+  </section>
+  <section class="sekce hidden" id="s-ukoly">
+    <div class="hlava"><div><h1>Úlohy a pripomienky</h1><p>Obhliadky, telefonáty, podklady. Čo je po termíne, svieti červeno.</p></div></div>
+    <div class="karta" style="margin-bottom:16px"><form id="u-form" class="odhad"><label>Čo<input name="text" required placeholder="Zavolať späť pánovi Novákovi"></label>
+      <label>Kedy<input name="datum" id="u-datum" type="date" required></label><label>Nehnuteľnosť<select name="nem" id="u-nem"></select></label>
+      <label>&nbsp;<button class="btn btn--p" type="submit">Pridať úlohu</button></label></form></div>
+    <div class="karta" id="ukoly-list"></div>
+  </section>
+  <section class="sekce hidden" id="s-odhad">
+    <div class="hlava"><div><h1>Odhad ceny</h1><p>Vložte odkaz na inzerát (ZoznamRealit.sk, Nehnuteľnosti.sk, Reality.sk), alebo vyplňte údaje ručne.</p></div></div>
+    <div class="karta" style="margin-bottom:16px"><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="o-url" placeholder="https://www.nehnutelnosti.sk/detail/…" style="flex:1 1 320px"><button class="btn btn--p" id="o-url-btn" type="button">Načítať z odkazu</button></div></div>
+    <div class="dva"><form class="karta" id="o-form"><h2>Údaje o nehnuteľnosti</h2><div class="odhad">
+      <label>Typ<select id="o-typ"><option value="byt">byt</option><option value="dům">dom</option><option value="pozemek">pozemok</option><option value="chata">chata</option><option value="komerční">komerčné</option></select></label><label>Ponuka<select id="o-tr"><option value="prodej">predaj</option><option value="pronájem">prenájom</option></select></label>
+      <label>Obec<input id="o-obec" list="o-obec-list" placeholder="Bratislava"><datalist id="o-obec-list"></datalist></label><label>Dispozícia<input id="o-disp" placeholder="3+kk"></label>
+      <label>Plocha (m²)<input id="o-plocha" type="number" min="1" required></label><label>Ponúkaná cena (€, nepovinné)<input id="o-cena" type="number" min="0"></label></div>
+      <button class="btn btn--p" type="submit" style="margin-top:14px">Vypočítať odhad</button></form>
+      <div id="o-vysledek"><div class="karta"><p style="margin:0;color:var(--muted)">Odhad vychádza z mediánu ceny za m² v obci, okrese alebo kraji podľa aktuálnych inzerátov na slovenských portáloch. Je orientačný, nenahrádza znalecký posudok.</p></div></div></div>
+  </section>
+  <section class="sekce hidden" id="s-emaily">
+    <div class="hlava"><div><h1>E-maily záujemcom</h1><p>Šablóny, ktoré sa vyplnia menom záujemcu a nehnuteľnosťou. V plnej verzii odchádzajú automaticky (deň pred obhliadkou, po obhliadke, po týždni).</p></div></div>
+    <div class="dva"><div class="karta"><div class="odhad"><label>Šablóna<select id="e-sablona"></select></label><label>Nehnuteľnosť<select id="e-nem"></select></label><label>Záujemca<select id="e-zajemce"></select></label></div></div>
+      <div class="karta"><label>Komu<input id="e-komu"></label><label style="margin-top:10px">Predmet<input id="e-predmet"></label><label style="margin-top:10px">Text<textarea id="e-telo" rows="12"></textarea></label>
+        <div style="display:flex;gap:8px;margin-top:12px"><button class="btn btn--p" id="e-otevrit" type="button">Otvoriť v pošte</button><button class="btn" id="e-kopirovat" type="button">Skopírovať text</button></div></div></div>
+  </section>
+  <section class="sekce hidden" id="s-nastaveni">
+    <div class="hlava"><div><h1>Nastavenia</h1></div></div>
+    <form class="karta" id="n-form" style="max-width:420px"><label>Provízia (% z ceny, pre odhad na prehľade)<input id="n-provize" type="number" min="0" max="15" step="0.5"></label>
+      <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn--p" type="submit">Uložiť</button><button class="btn" type="button" id="n-reset">Obnoviť ukážkové dáta</button></div></form>
+  </section>
+</main>
+</div>
+<div id="zatemneni" class="zatemneni hidden"></div>
+<div id="panel" class="panel hidden"></div>
+<div id="toast" class="toast" role="status"></div>
+<script>
+(function(){
+var D=JSON.parse(document.getElementById('mk-data').textContent);
+var KEY='mkcrm:'+D.slug, FAZE=['Nábor','Príprava','V inzercii','Obhliadky','Rezervácia','Predané'];
+var S=null;
+function nacti(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+  if(!S){S={faze:{},pozn:{},zajemci:[],ukoly:[],nast:{provize:3,prihlasen:false},seed:true};
+    D.nemovitosti.forEach(function(n){S.faze[n.id]='V inzercii'});
+    var dnes=new Date();function d(o){var x=new Date(dnes);x.setDate(x.getDate()+o);return x.toISOString().slice(0,10)}
+    var n0=D.nemovitosti[0]||{},n1=D.nemovitosti[1]||n0;
+    S.zajemci=[{id:'z1',jmeno:'Jana Ukážková (ukážka)',telefon:'+421 900 000 111',email:'jana@example.com',hleda:'3-izbový byt, '+(n0.obec||''),rozpocet:n0.cena||0,nem:n0.id,stav:'Obhliadka',pozn:'Záujem o obhliadku cez víkend.'},
+      {id:'z2',jmeno:'Peter Ukážkový (ukážka)',telefon:'+421 900 000 222',email:'peter@example.com',hleda:'dom so záhradou',rozpocet:Math.round((n1.cena||0)*1.1),nem:n1.id,stav:'Nový',pozn:'Prišiel z inzerátu, poslať ďalšie ponuky.'}];
+    S.ukoly=[{id:'u1',text:'Obhliadka: '+(n0.titul||'nehnuteľnosť')+' s Janou Ukážkovou',datum:d(1),nem:n0.id,hotovo:false},
+      {id:'u2',text:'Zavolať späť Petrovi Ukážkovému',datum:d(0),nem:n1.id,hotovo:false},
+      {id:'u3',text:'Pripraviť podklady pre kúpnu zmluvu',datum:d(-2),nem:n0.id,hotovo:true}];
+    uloz()}}
+function uloz(){localStorage.setItem(KEY,JSON.stringify(S))}
+var LBL={prodej:'predaj','pronájem':'prenájom','dražba':'dražba','dům':'dom',pozemek:'pozemok','komerční':'komerčné','ostatní':'ostatné','garáž':'garáž'};
+function lbl(v){return esc(LBL[v]||v)}
+function Kc(n){return n?Math.round(n).toLocaleString('sk-SK')+' €':'cena na vyžiadanie'}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function nem(id){return D.nemovitosti.find(function(n){return String(n.id)===String(id)})}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(function(){e.classList.remove('on')},2200)}
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return [].slice.call((r||document).querySelectorAll(s))}
+document.documentElement.style.setProperty('--a',D.accent);
+addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('is-broken');if(t.parentNode)t.parentNode.classList.add('bez-fotky')}},true);
+
+/* ---------- přihlášení ---------- */
+function ukazApp(){$('#login').classList.add('hidden');$('#app').classList.remove('hidden');jdi(location.hash.replace('#','')||'prehled')}
+$('#login form').addEventListener('submit',function(e){e.preventDefault();
+  if($('#heslo').value.trim().toLowerCase()!=='makler'){$('#login-chyba').classList.remove('hidden');return}
+  S.nast.prihlasen=true;uloz();ukazApp()});
+$('#odhlasit').addEventListener('click',function(){S.nast.prihlasen=false;uloz();location.hash='';location.reload()});
+
+/* ---------- navigace ---------- */
+function jdi(sekce){$$('.sekce').forEach(function(s){s.classList.toggle('hidden',s.id!=='s-'+sekce)});
+  $$('.side a.nav').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+sekce)});
+  location.hash=sekce;({prehled:prehled,pipeline:pipeline,zajemci:zajemci,ukoly:ukoly,odhad:odhadInit,emaily:emaily,nastaveni:nastaveni}[sekce]||prehled)()}
+$$('.side a.nav').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();jdi(a.getAttribute('href').slice(1))})});
+
+/* ---------- přehled ---------- */
+function prehled(){var hodnota=0,prodano=0;D.nemovitosti.forEach(function(n){if(n.cena&&n.tr==='prodej'){if(S.faze[n.id]==='Predané')prodano+=n.cena;else hodnota+=n.cena}});
+  var dnes=new Date().toISOString().slice(0,10),tyden=new Date();tyden.setDate(tyden.getDate()+7);tyden=tyden.toISOString().slice(0,10);
+  var uk=S.ukoly.filter(function(u){return !u.hotovo&&u.datum<=tyden});
+  $('#kpi').innerHTML='<div><b>'+D.nemovitosti.length+'</b><span>nehnuteľností v ponuke</span></div>'+
+    '<div><b>'+Kc(hodnota)+'</b><span>hodnota aktívnej ponuky</span></div>'+
+    '<div><b>'+Kc(hodnota*S.nast.provize/100)+'</b><span>odhad provízie ('+S.nast.provize+' %)</span></div>'+
+    '<div><b>'+S.zajemci.length+'</b><span>záujemcov</span></div><div><b>'+uk.length+'</b><span>úloh do 7 dní</span></div>';
+  var faze={};FAZE.forEach(function(f){faze[f]=0});D.nemovitosti.forEach(function(n){faze[S.faze[n.id]||'V inzercii']++});
+  $('#prehled-faze').innerHTML=FAZE.map(function(f){return '<tr><td>'+f+'</td><td><b>'+faze[f]+'</b></td></tr>'}).join('');
+  $('#prehled-ukoly').innerHTML=uk.length?uk.sort(function(a,b){return a.datum<b.datum?-1:1}).map(function(u){var n=nem(u.nem);
+    return '<div class="ukol'+(u.datum<dnes?' pozde':'')+'"><div><b>'+esc(u.text)+'</b><small>'+u.datum+(n?' · '+esc(n.titul):'')+'</small></div></div>'}).join(''):'<p>Žiadne úlohy. Pridajte prvú v sekcii Úlohy.</p>'}
+
+/* ---------- pipeline ---------- */
+var otevreno=null;
+function pipeline(){var k=$('#kanban');k.innerHTML=FAZE.map(function(f){var karty=D.nemovitosti.filter(function(n){return (S.faze[n.id]||'V inzercii')===f});
+  return '<div class="sloupec" data-faze="'+f+'"><div class="sloupec__h">'+f+'<span>'+karty.length+'</span></div>'+karty.map(function(n){
+    return '<div class="kk" draggable="true" data-id="'+esc(n.id)+'"><img src="'+esc(n.foto||'')+'" alt="" loading="lazy"><div><b>'+esc(n.titul)+'</b><span>'+esc(n.obec)+'</span><br><em>'+Kc(n.cena)+'</em></div></div>'}).join('')+'</div>'}).join('');
+  $$('.kk',k).forEach(function(c){c.addEventListener('dragstart',function(e){e.dataTransfer.setData('text',c.dataset.id);c.classList.add('dragging')});
+    c.addEventListener('dragend',function(){c.classList.remove('dragging')});c.addEventListener('click',function(){otevri(c.dataset.id)})});
+  $$('.sloupec',k).forEach(function(s){s.addEventListener('dragover',function(e){e.preventDefault();s.classList.add('over')});s.addEventListener('dragleave',function(){s.classList.remove('over')});
+    s.addEventListener('drop',function(e){e.preventDefault();s.classList.remove('over');var id=e.dataTransfer.getData('text');S.faze[id]=s.dataset.faze;uloz();pipeline();toast('Presunuté do „'+s.dataset.faze+'“')})})}
+function otevri(id){var n=nem(id);if(!n)return;otevreno=id;var p=$('#panel');p.classList.remove('hidden');$('#zatemneni').classList.remove('hidden');
+  var z=S.zajemci.filter(function(x){return String(x.nem)===String(id)});
+  p.innerHTML='<button class="zavrit" aria-label="Zavrieť">×</button><img class="foto" src="'+esc(n.foto_velka||n.foto||'')+'" alt=""><h2>'+esc(n.titul)+'</h2>'+
+    '<div><span class="stitek">'+lbl(n.tr)+' · '+lbl(n.typ)+'</span> &nbsp; <b>'+Kc(n.cena)+'</b>'+(n.plocha?' · '+n.plocha+' m²':'')+(n.cena&&n.plocha?' · '+Kc(n.cena/n.plocha)+'/m²':'')+'</div>'+
+    '<div style="color:var(--muted)">'+esc([n.obec,n.okres,n.kraj].filter(Boolean).join(', '))+(n.vlozeno?' · v ponuke od '+n.vlozeno:'')+'</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn--s" href="../'+esc(n.slug)+'/" target="_blank">Stránka na webe</a>'+(n.portal?'<a class="btn btn--s" href="'+esc(n.portal)+'" target="_blank" rel="noopener">Inzerát na portáli</a>':'')+'</div>'+
+    '<label>Fáza<select id="p-faze">'+FAZE.map(function(f){return '<option'+((S.faze[id]||'V inzercii')===f?' selected':'')+'>'+f+'</option>'}).join('')+'</select></label>'+
+    '<div class="karta"><h2>Záujemcovia ('+z.length+')</h2>'+(z.length?z.map(function(x){return '<div>'+esc(x.jmeno)+' · <span class="stitek">'+esc(x.stav)+'</span> · '+esc(x.telefon)+'</div>'}).join(''):'<p style="margin:0;color:var(--muted)">Zatiaľ žiadny. Pridajte v sekcii Záujemcovia.</p>')+'</div>'+
+    '<div class="karta"><h2>Poznámky</h2><div class="pozn" id="p-pozn"></div><div style="display:flex;gap:8px;margin-top:10px"><input id="p-nova" placeholder="Napr. obhliadka prebehla, záujemca chce zľavu"><button class="btn btn--p" id="p-pridat">Pridať</button></div></div>'+
+    '<div class="karta"><h2>Rýchle akcie</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn--s" data-akce="prohlidka">+ Úloha: obhliadka zajtra</button><button class="btn btn--s" data-akce="email">Napísať záujemcom</button><button class="btn btn--s" data-akce="odhad">Porovnať s cenami v okolí</button></div></div>';
+  vykresliPozn();
+  $('.zavrit',p).addEventListener('click',zavri);$('#p-faze').addEventListener('change',function(){S.faze[id]=this.value;uloz();pipeline();toast('Fáza zmenená')});
+  $('#p-pridat').addEventListener('click',function(){var t=$('#p-nova').value.trim();if(!t)return;(S.pozn[id]=S.pozn[id]||[]).unshift({t:new Date().toISOString().slice(0,16).replace('T',' '),txt:t});uloz();$('#p-nova').value='';vykresliPozn()});
+  $$('[data-akce]',p).forEach(function(b){b.addEventListener('click',function(){var a=b.dataset.akce;
+    if(a==='prohlidka'){var d=new Date();d.setDate(d.getDate()+1);S.ukoly.unshift({id:'u'+Date.now(),text:'Obhliadka: '+n.titul,datum:d.toISOString().slice(0,10),nem:id,hotovo:false});uloz();toast('Úloha pridaná');}
+    if(a==='email'){zavri();jdi('emaily');$('#e-nem').value=id;$('#e-sablona').value='nova';sestavEmail()}
+    if(a==='odhad'){zavri();jdi('odhad');$('#o-typ').value=n.typ;$('#o-tr').value=n.tr;$('#o-obec').value=n.obec||'';$('#o-plocha').value=n.plocha||'';$('#o-cena').value=n.cena||'';spocitej()}})})}
+function vykresliPozn(){var l=S.pozn[otevreno]||[];$('#p-pozn').innerHTML=l.length?l.map(function(p){return '<div>'+esc(p.txt)+'<small>'+p.t+'</small></div>'}).join(''):'<p style="margin:0;color:var(--muted)">Zatiaľ bez poznámok.</p>'}
+function zavri(){$('#panel').classList.add('hidden');$('#zatemneni').classList.add('hidden');otevreno=null}
+$('#zatemneni').addEventListener('click',zavri);
+
+/* ---------- zájemci ---------- */
+var STAVY=['Nový','Kontaktovaný','Obhliadka','Ponuka','Uzavreté','Nezáujem'];
+function zajemci(){var t=$('#zajemci-tab');t.innerHTML=S.zajemci.map(function(z){var n=nem(z.nem);
+  return '<tr><td><b>'+esc(z.jmeno)+'</b><br><small>'+esc(z.telefon)+' · '+esc(z.email)+'</small></td><td>'+esc(z.hleda)+'<br><small>rozpočet '+Kc(z.rozpocet)+'</small></td><td>'+(n?esc(n.titul):'-')+'</td>'+
+    '<td><select data-z="'+z.id+'">'+STAVY.map(function(s){return '<option'+(s===z.stav?' selected':'')+'>'+s+'</option>'}).join('')+'</select></td><td>'+esc(z.pozn)+'</td><td><button class="btn btn--s" data-smaz="'+z.id+'">×</button></td></tr>'}).join('')||'<tr><td colspan="6">Zatiaľ žiadny záujemca.</td></tr>';
+  $$('select[data-z]',t).forEach(function(s){s.addEventListener('change',function(){var z=S.zajemci.find(function(x){return x.id===s.dataset.z});z.stav=s.value;uloz();toast('Stav uložený')})});
+  $$('[data-smaz]',t).forEach(function(b){b.addEventListener('click',function(){S.zajemci=S.zajemci.filter(function(x){return x.id!==b.dataset.smaz});uloz();zajemci()})});
+  $('#z-nem').innerHTML='<option value="">bez nehnuteľnosti</option>'+D.nemovitosti.map(function(n){return '<option value="'+esc(n.id)+'">'+esc(n.titul)+' · '+esc(n.obec)+'</option>'}).join('')}
+$('#z-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target;
+  S.zajemci.unshift({id:'z'+Date.now(),jmeno:f.jmeno.value,telefon:f.telefon.value,email:f.email.value,hleda:f.hleda.value,rozpocet:+f.rozpocet.value||0,nem:f.nem.value,stav:'Nový',pozn:f.pozn.value});
+  uloz();f.reset();zajemci();toast('Záujemca pridaný')});
+
+/* ---------- úkoly ---------- */
+function ukoly(){var dnes=new Date().toISOString().slice(0,10);var l=S.ukoly.slice().sort(function(a,b){return (a.hotovo-b.hotovo)||(a.datum<b.datum?-1:1)});
+  $('#ukoly-list').innerHTML=l.map(function(u){var n=nem(u.nem);return '<div class="ukol'+(u.hotovo?' hotovo':'')+(!u.hotovo&&u.datum<dnes?' pozde':'')+'"><input type="checkbox" data-u="'+u.id+'"'+(u.hotovo?' checked':'')+'><div><b>'+esc(u.text)+'</b><small>'+u.datum+(n?' · '+esc(n.titul):'')+'</small></div></div>'}).join('')||'<p>Žiadne úlohy.</p>';
+  $$('input[data-u]').forEach(function(c){c.addEventListener('change',function(){var u=S.ukoly.find(function(x){return x.id===c.dataset.u});u.hotovo=c.checked;uloz();ukoly()})});
+  $('#u-nem').innerHTML='<option value="">bez nehnuteľnosti</option>'+D.nemovitosti.map(function(n){return '<option value="'+esc(n.id)+'">'+esc(n.titul)+'</option>'}).join('');
+  if(!$('#u-datum').value)$('#u-datum').value=dnes}
+$('#u-form').addEventListener('submit',function(e){e.preventDefault();var f=e.target;S.ukoly.unshift({id:'u'+Date.now(),text:f.text.value,datum:f.datum.value,nem:f.nem.value,hotovo:false});uloz();f.text.value='';ukoly();toast('Úloha pridaná')});
+
+/* ---------- odhad ceny ---------- */
+var CENY=null;
+function slug(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function odhadInit(){if(CENY)return;fetch('../assets/ceny.json').then(function(r){return r.json()}).then(function(j){CENY=j;var o=$('#o-obec-list');o.innerHTML=j.filter(function(r){return r.u==='obec'}).map(function(r){return r.k}).filter(function(v,i,a){return a.indexOf(v)===i}).sort().map(function(k){return '<option value="'+esc(k)+'">'}).join('')}).catch(function(){$('#o-vysledek').innerHTML='<p>Cenové dáta sa nepodarilo načítať (v náhľade zo súboru nie sú dostupné, na webe áno).</p>'})}
+function zUrl(){var u=$('#o-url').value.trim();if(!u)return;var m;
+  if((m=u.match(/sreality\.cz\/detail\/(prodej|pronajem)\/(byt|dum|pozemek|komercni|ostatni)\/([^\/]+)\/([^\/]+)\//))){
+    $('#o-tr').value=m[1]==='pronajem'?'pronájem':'prodej';$('#o-typ').value={byt:'byt',dum:'dům',pozemek:'pozemek',komercni:'komerční',ostatni:'ostatní'}[m[2]];
+    if(/^\d\+(kk|1)$/.test(m[3]))$('#o-disp').value=m[3];najdiObec(m[4])}
+  else if((m=u.match(/realitymix\.cz\/detail\/([^\/]+)\/([^\/]+)-\d+\.html/))){var s=m[2];
+    $('#o-tr').value=/pronajem/.test(s)?'pronájem':'prodej';$('#o-typ').value=/pozemk/.test(s)?'pozemek':/dom|vil|chat|chalup/.test(s)?'dům':/byt/.test(s)?'byt':/komer|kancel/.test(s)?'komerční':'byt';
+    var d=s.match(/(\d)-?(kk|1)(?:-|$)/);if(d)$('#o-disp').value=d[1]+'+'+d[2];var p=s.match(/(\d+)-m2/);if(p)$('#o-plocha').value=p[1];najdiObec(m[1])}
+  else if((m=u.match(/bezrealitky\.cz\/.*?(prodej|pronajem)-(bytu|domu|pozemku)[^\/]*?-(.+?)(?:\?|$)/))){$('#o-tr').value=m[1]==='pronajem'?'pronájem':'prodej';$('#o-typ').value={bytu:'byt',domu:'dům',pozemku:'pozemek'}[m[2]];najdiObec(m[3])}
+  else{toast('Adresu neviem prečítať, vyplňte polia ručne');return}
+  toast('Údaje z inzerátu predvyplnené, skontrolujte plochu');spocitej()}
+function najdiObec(seo){if(!CENY)return;var s=slug(seo),best='';CENY.forEach(function(r){if(r.u!=='obec')return;var k=slug(r.k);if(s.indexOf(k)===0&&k.length>best.length)best=r.k});if(best)$('#o-obec').value=best}
+function spocitej(){if(!CENY){$('#o-vysledek').innerHTML='<p>Načítavam cenové dáta…</p>';return}
+  var typ=$('#o-typ').value,tr=$('#o-tr').value,ob=$('#o-obec').value.trim(),pl=+$('#o-plocha').value,cena=+$('#o-cena').value;
+  if(!pl){$('#o-vysledek').innerHTML='<p>Zadajte plochu v m².</p>';return}
+  var obR=CENY.find(function(r){return r.u==='obec'&&r.t===typ&&r.r===tr&&slug(r.k)===slug(ob)});
+  var okres=obR&&obR.ok,kraj=obR&&obR.kr;
+  if(!obR){var any=CENY.find(function(r){return r.u==='obec'&&slug(r.k)===slug(ob)&&r.ok});if(any){okres=any.ok;kraj=any.kr}}
+  var kand=[[obR,'obec '+ob],[CENY.find(function(r){return r.u==='okres'&&r.k===okres&&r.t===typ&&r.r===tr}),'okres '+okres],
+    [CENY.find(function(r){return r.u==='kraj'&&r.k===kraj&&r.t===typ&&r.r===tr}),kraj],[CENY.find(function(r){return r.u==='cr'&&r.t===typ&&r.r===tr}),'celá SR']];
+  var pouz=null;for(var i=0;i<kand.length;i++){if(kand[i][0]&&kand[i][0].n>=8){pouz=kand[i];break}}
+  if(!pouz){for(i=0;i<kand.length;i++){if(kand[i][0]){pouz=kand[i];break}}}
+  if(!pouz){$('#o-vysledek').innerHTML='<p>Pre túto kombináciu nemám dáta.</p>';return}
+  var r=pouz[0],med=r.med*pl,q1=r.q1*pl,q3=r.q3*pl,jm=(tr==='pronájem'?' / mesiac':'');
+  var moje=D.nemovitosti.filter(function(n){return n.typ===typ&&n.tr===tr&&n.cena&&n.plocha});var mojeM2=moje.length?moje.reduce(function(a,n){return a+n.cena/n.plocha},0)/moje.length:0;
+  var poz=cena?Math.max(0,Math.min(100,(cena-q1)/(q3-q1)*100)):50;
+  $('#o-vysledek').innerHTML='<div class="karta vysledek"><span style="color:var(--muted)">Orientačná trhová cena</span><b class="cena">'+Kc(med)+jm+'</b>'+
+    '<div class="rozpeti"><span>spodná štvrtina '+Kc(q1)+'</span><span>horná štvrtina '+Kc(q3)+'</span></div><div class="pruh"><i style="left:'+poz+'%"></i></div>'+
+    (cena?'<p><b>Zadaná cena '+Kc(cena)+'</b> je '+(cena<q1?'pod spodnou štvrtinou (rýchly predaj, možno podcenené)':cena>q3?'nad hornou štvrtinou (dlhší predaj, priestor na zľavu)':'v obvyklom rozpätí')+'.</p>':'')+
+    '<p style="color:var(--muted);font-size:13px;margin:8px 0 0">Medián '+Kc(r.med)+'/m², '+r.n+' inzerátov, úroveň: '+esc(pouz[1])+'. Zdroj: aktuálna inzercia (ZoznamRealit.sk, Nehnuteľnosti.sk, Reality.sk). Nie je to znalecký posudok.</p>'+
+    (mojeM2?'<p style="font-size:13px;margin:6px 0 0">Vaša ponuka rovnakého typu: priemer '+Kc(mojeM2)+'/m² ('+moje.length+' nehnuteľností).</p>':'')+'</div>'}
+$('#o-url-btn').addEventListener('click',zUrl);$('#o-url').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();zUrl()}});
+$('#o-form').addEventListener('submit',function(e){e.preventDefault();spocitej()});
+
+/* ---------- e-maily ---------- */
+var SABLONY={potvrzeni:{n:'Potvrdenie obhliadky',p:'Potvrdenie obhliadky: {titul}',t:'Dobrý deň, {zajemce},\n\npotvrdzujem našu obhliadku nehnuteľnosti {titul} ({obec}) v termíne {datum}. Stretneme sa priamo pred domom.\n\nAk by sa čokoľvek zmenilo, dajte mi prosím vedieť, najrýchlejšie cez WhatsApp.\n\nTeším sa na Vás,\n{makler}\n{telefon}'},
+  podekovani:{n:'Poďakovanie po obhliadke',p:'Ďakujem za obhliadku: {titul}',t:'Dobrý deň, {zajemce},\n\nďakujem za dnešnú obhliadku nehnuteľnosti {titul}. Ak máte akékoľvek otázky k technickému stavu, financovaniu alebo termínu odovzdania, rád ich zodpoviem.\n\nAk by Vás nehnuteľnosť zaujala, dajte mi prosím vedieť do konca týždňa, záujemcov je viac.\n\nS pozdravom\n{makler}\n{telefon}'},
+  nova:{n:'Nová ponuka pre záujemcu',p:'Nová ponuka: {titul}',t:'Dobrý deň, {zajemce},\n\nmám pre Vás novú ponuku, ktorá zodpovedá tomu, čo hľadáte: {titul}, {obec}, {cena}.\n\nPodrobnosti a fotografie: {odkaz}\n\nAk Vás zaujme, dohodneme obhliadku hneď tento týždeň.\n\nS pozdravom\n{makler}\n{telefon}'},
+  followup:{n:'Pripomenutie po týždni',p:'Ešte k nehnuteľnosti {titul}',t:'Dobrý deň, {zajemce},\n\npred týždňom sme spolu hovorili o nehnuteľnosti {titul}. Chcem sa len spýtať, či je pre Vás stále aktuálna, prípadne či mám poslať iné ponuky v lokalite {obec}.\n\nS pozdravom\n{makler}\n{telefon}'},
+  doporuceni:{n:'Prosba o odporúčanie po predaji',p:'Ďakujem za spoluprácu',t:'Dobrý deň, {zajemce},\n\nďakujem za dôveru pri predaji nehnuteľnosti {titul}. Ak ste boli spokojní, budem vďačný za krátke hodnotenie alebo odporúčanie známym, ktorí riešia predaj či kúpu.\n\nSo želaním všetkého dobrého\n{makler}\n{telefon}'}};
+function emaily(){$('#e-sablona').innerHTML=Object.keys(SABLONY).map(function(k){return '<option value="'+k+'">'+SABLONY[k].n+'</option>'}).join('');
+  $('#e-nem').innerHTML=D.nemovitosti.map(function(n){return '<option value="'+esc(n.id)+'">'+esc(n.titul)+' · '+esc(n.obec)+'</option>'}).join('');
+  $('#e-zajemce').innerHTML=S.zajemci.map(function(z){return '<option value="'+z.id+'">'+esc(z.jmeno)+'</option>'}).join('')||'<option value="">(pridajte záujemcu)</option>';sestavEmail()}
+function sestavEmail(){var s=SABLONY[$('#e-sablona').value]||SABLONY.nova,n=nem($('#e-nem').value)||{},z=S.zajemci.find(function(x){return x.id===$('#e-zajemce').value})||{jmeno:'',email:''};
+  var d=new Date();d.setDate(d.getDate()+1);var odkaz=location.href.replace(/admin\/.*$/,'')+(n.slug||'')+'/';
+  var map={zajemce:z.jmeno.replace(/ \(ukážka\)/,'')||'',titul:n.titul||'',obec:n.obec||'',cena:Kc(n.cena),datum:d.toLocaleDateString('sk-SK')+' o 17:00',makler:D.jmeno,telefon:D.telefon,odkaz:odkaz};
+  function f(t){return t.replace(/\{(\w+)\}/g,function(_,k){return map[k]||''})}
+  $('#e-predmet').value=f(s.p);$('#e-telo').value=f(s.t);$('#e-komu').value=z.email||''}
+$$('#e-sablona,#e-nem,#e-zajemce').forEach(function(el){el.addEventListener('change',sestavEmail)});
+$('#e-kopirovat').addEventListener('click',function(){navigator.clipboard&&navigator.clipboard.writeText($('#e-telo').value).then(function(){toast('Skopírované')})});
+$('#e-otevrit').addEventListener('click',function(){location.href='mailto:'+encodeURIComponent($('#e-komu').value)+'?subject='+encodeURIComponent($('#e-predmet').value)+'&body='+encodeURIComponent($('#e-telo').value)});
+
+/* ---------- nastavení ---------- */
+function nastaveni(){$('#n-provize').value=S.nast.provize}
+$('#n-form').addEventListener('submit',function(e){e.preventDefault();S.nast.provize=+$('#n-provize').value||3;uloz();toast('Uložené')});
+$('#n-reset').addEventListener('click',function(){localStorage.removeItem(KEY);location.reload()});
+
+nacti();if(S.nast.prihlasen)ukazApp();
+})();
+</script>
+</body></html>
